@@ -1,46 +1,58 @@
 #include <iostream>
-
 using namespace std;
+class ComplexNumber {
+private:
+    float real;
+    float imaginary;
 
-class Hourglass{//створення класу
 public:
-    float width, height;
-    Hourglass();//ініціалізація конструктору без параметрів
-    Hourglass(float, float);//ініціалізація конструктору з параметрами
-    float get_sides();//ініціалізація методу для отримання значень ширини та висоти пісочного годинника
-    float get_area();//ініціалізація методу для обчислення площі пісочного годинника
+    ComplexNumber() : real(0.0f), imaginary(0.0f) {}
+    ComplexNumber(float realPart, float imaginaryPart) : real(realPart), imaginary(imaginaryPart) {}
+
+    float getReal() const {
+        return real;
+    }
+
+    void setReal(float realPart) {
+        real = realPart;
+    }
+
+    float getImaginary() const {
+        return imaginary;
+    }
+
+    void setImaginary(float imaginaryPart) {
+        imaginary = imaginaryPart;
+    }
+
+    void print() const {
+        cout << "(" << real << "+i" << imaginary << ")";
+    }
 };
 
-Hourglass::Hourglass(){//екземпляр першого конструктора(без параметрів)
-    width = height = 0;
+ComplexNumber frd(const ComplexNumber& num1, const ComplexNumber& num2) {
+    float realPart = num1.getReal() + num2.getReal();
+    float imaginaryPart = num1.getImaginary() + num2.getImaginary();
+    return ComplexNumber(realPart, imaginaryPart);
 }
 
-Hourglass::Hourglass(float a, float b){//екземпляр другого конструктора(з параметрами а та b)
-    width = a;
-    height = b;
-}
 
-float Hourglass::get_sides(){//метод для вводу значень ширини та висоти
-    cout << "Enter the width: ";
-    cin >> width;
-    cout << "Enter the height: ";
-    cin >> height;
-}
 
-float Hourglass::get_area(){//метод для обчислення площі пісочного годинника
-    float area = (width * height) / 2;
-    return area;
-}
+int main() {
+    ComplexNumber complexNum1;
+    ComplexNumber complexNum2(1.5f, 2.5f);
 
-void print_sqrt(){//функція для виводу усіх даних на екран
-    Hourglass hourglass;
-    hourglass.get_sides();
-    cout << "Width: " << hourglass.width << endl;
-    cout << "Height: " << hourglass.height << endl;
-    cout << "Area: " << hourglass.get_area() << endl;
-}
+    cout << "Complex Number 1: ";
+    complexNum1.print();
+    cout << endl;
 
-int main(){
-    print_sqrt();
+    cout << "Complex Number 2: ";
+    complexNum2.print();
+    cout << endl;
+
+    ComplexNumber sum = frd(complexNum1, complexNum2);
+    cout << "Sum: ";
+    sum.print();
+
     return 0;
 }
